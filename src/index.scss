@@ -11,3 +11,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #b2bec4 20px,
+    rgba(220, 218, 218, 0.9) 60px,
+    #b2bec4 80px
+  );
+
+  background-size: 250%;
+  background-position: 100% 0;
+  min-height: 20px;
+  width: 100%;
+  animation: shimmer 3s infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -100%;
+  }
+}

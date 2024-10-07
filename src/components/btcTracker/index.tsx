@@ -12,7 +12,6 @@ interface TabItem {
 }
 
 export default function BtcTracker() {
-  const [isLoading, setIsLoading] = useState(false);
   const [activeType, setActiveType] = useState("2");
   const [priceData, setPriceData] = useState([]);
   const [volumeData, setVolumeData] = useState([]); // Volume data state
@@ -41,7 +40,7 @@ export default function BtcTracker() {
               setChartRange={setChartRange}
             />
           ) : (
-            <div>Loading chart...</div>
+            <div className='chartContainerLoader skeleton'></div>
           ),
       },
       { key: "3", label: "Statistics", children: <div>Statistics</div> },
@@ -82,8 +81,6 @@ export default function BtcTracker() {
         days = 7;
     }
 
-    setIsLoading(true);
-
     try {
       const response = await axios.get(
         `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart`,
@@ -93,7 +90,6 @@ export default function BtcTracker() {
       );
       const prices = response.data.prices;
       const volumes = response.data.total_volumes;
-      console.log("DATA", response.data);
       setPriceData(prices.map((p: any) => ({ time: p[0], value: p[1] })));
       setVolumeData(volumes.map((v: any) => ({ time: v[0], value: v[1] })));
       setLabels(prices.map((p: any) => new Date(p[0]).toLocaleDateString()));
@@ -105,28 +101,36 @@ export default function BtcTracker() {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-
-    setIsLoading(false);
   };
 
   return (
     <main className='btcTrackerContainer'>
       <div className='latestPrice'>
-        <div className='currentPrice'>
-          <h1>
-            {currentPrice ? `${amountWrapper(currentPrice)}` : "Loading..."}
-          </h1>
-          <p>USD</p>
-        </div>
-        <h3
-          className={`priceChanges ${
-            priceChange && priceChange < 0 ? "negative" : "positive"
-          }`}
-        >
-          {priceChange &&
-            `${priceChange >= 0 ? "+" : ""} ${amountWrapper(priceChange)}`}{" "}
-          ({percentageChange !== null ? `${percentageChange.toFixed(2)}%` : ""})
-        </h3>
+        {currentPrice ? (
+          <div className='currentPrice'>
+            <h1>{`${amountWrapper(currentPrice || 0)}`}</h1>
+            <p>USD</p>
+          </div>
+        ) : (
+          <div className='currentPriceLoader skeleton'></div>
+        )}
+        {currentPrice ? (
+          <h3
+            className={`priceChanges ${
+              priceChange && priceChange < 0 ? "negative" : "positive"
+            }`}
+          >
+            {priceChange &&
+              `${priceChange >= 0 ? "+" : ""} ${amountWrapper(
+                priceChange
+              )}`}{" "}
+            (
+            {percentageChange !== null ? `${percentageChange.toFixed(2)}%` : ""}
+            )
+          </h3>
+        ) : (
+          <div className='priceChangesLoader skeleton'></div>
+        )}
       </div>
       <Tabs
         defaultActiveKey={"2"}
