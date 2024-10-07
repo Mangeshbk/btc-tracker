@@ -1,0 +1,110 @@
+.chartContainer {
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    max-width: 750px;
+    margin: 0 0 16px;
+    overflow-y: auto;
+
+    div {
+      display: flex;
+      gap: 4px;
+
+      button {
+        width: fit-content;
+        padding: 8px 12px;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        background: transparent;
+        color: #6f7177;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
+        &:hover {
+          color: #ffffff;
+          background: #4b40ee;
+
+          svg {
+            path {
+              stroke: #ffffff;
+            }
+          }
+        }
+      }
+      .active {
+        color: #ffffff !important;
+        background: #4b40ee !important;
+      }
+    }
+  }
+  .graph {
+    margin-bottom: 30px;
+  }
+  .chart {
+    // border-left: 1px solid #e9eaed;
+    max-width: 840px;
+  }
+}
+
+#tv-attr-logo {
+  display: none;
+}
+
+.ant-tabs {
+  .ant-tabs-tab-active {
+    .ant-tabs-tab-btn {
+      color: #4b40ee !important;
+      font-size: 18px;
+
+      &:hover {
+        color: #4b40ee !important;
+      }
+    }
+  }
+  .ant-tabs-ink-bar {
+    height: 2px !important;
+    background: #4b40ee !important;
+  }
+  .ant-tabs-content-holder {
+    color: #4b40ee !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .chartContainer {
+    .controls {
+      div {
+        display: flex;
+        gap: 4px;
+
+        button {
+          padding: 5px 8px;
+          font-size: 14px;
+
+          span {
+            display: none;
+          }
+        }
+      }
+    }
+    .chart {
+      width: 100%;
+      // overflow-y: auto;
+    }
+  }
+  .ant-tabs {
+    .ant-tabs-tab-active {
+      .ant-tabs-tab-btn {
+        color: #4b40ee !important;
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -1,10 +1,12 @@
 import BtcTracker from "./components/btcTracker";
+import BtcTrackerC from "./components/btcTracker copy";
 
 function App() {
   return (
-    <div className='App'>
+    <main className='App'>
       <BtcTracker />
-    </div>
+      {/* <BtcTrackerC /> */}
+    </main>
   );
 }
 
